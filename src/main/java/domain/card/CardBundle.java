@@ -7,8 +7,10 @@ import java.util.Objects;
 
 public class CardBundle {
 
-    private static final int BUSTED_CONDITION = 21;
+    private static final int BUSTED_CONDITION = 22;
+    private static final int BLACKJACK_CONDITION = 22;
     private static final int ACE_BONUS_SCORE = 10;
+    private static final int NUMBER_OF_BLACKJACK_CARD = 2;
 
     private final List<Card> cardBundle;
 
@@ -64,7 +66,7 @@ public class CardBundle {
     }
 
     public boolean isBusted() {
-        return getBasicScore() > BUSTED_CONDITION;
+        return getBasicScore() >= BUSTED_CONDITION;
     }
 
     public boolean hasAce() {
@@ -74,6 +76,14 @@ public class CardBundle {
 
     public List<Card> openMyCards() {
         return Collections.unmodifiableList(cardBundle);
+    }
+
+    public boolean isBlackjack() {
+        return isNumberOfBlackjackCard() && getResultScore() == BLACKJACK_CONDITION;
+    }
+
+    private boolean isNumberOfBlackjackCard() {
+        return cardBundle.size() == NUMBER_OF_BLACKJACK_CARD;
     }
 
 }
