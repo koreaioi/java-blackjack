@@ -1,31 +1,24 @@
 package domain.card;
 
-import java.util.Objects;
+public record Card(
+        CardDenomination denomination,
+        CardEmblem emblem
+) {
 
-public class Card {
-
-    private final CardEmblem emblem;
-    private final CardDenomination denomination;
-
-    private Card(CardEmblem emblem, CardDenomination denomination) {
-        this.emblem = emblem;
-        this.denomination = denomination;
+    public static Card of(CardDenomination denomination, CardEmblem emblem) {
+        return new Card(denomination, emblem);
     }
 
-    public static Card of(CardEmblem emblem, CardDenomination denomination) {
-        return new Card(emblem, denomination);
+    public String openCard() {
+        return denomination.getName() + emblem.getName();
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (object == null || getClass() != object.getClass()) return false;
-        Card card = (Card) object;
-        return emblem == card.emblem && denomination == card.denomination;
+    public int getScore() {
+        return denomination.getScore();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(emblem, denomination);
+    public boolean isAce() {
+        return denomination.isAce();
     }
 
 }
